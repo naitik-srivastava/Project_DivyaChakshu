@@ -1,0 +1,239 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 18px;
+    background: #0b0f14;
+    color: #e8eef5;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+}
+
+.brand {
+    text-align: center;
+    margin: 8px 0 25px;
+}
+
+.brand small {
+    display: block;
+    color: #8fa0b2;
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 3px;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: clamp(38px, 7vw, 68px);
+    letter-spacing: 4px;
+    font-weight: 900;
+}
+
+.subtitle {
+    text-align: center;
+    color: #8fa0b2;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.card {
+    background: #151b22;
+    border: 1px solid #293440;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.card h2 {
+    margin: 0 0 15px;
+    font-size: 20px;
+}
+
+video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 13px;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.start { background: #28b463; color: white; }
+.stop { background: #d64541; color: white; }
+
+.speech-on {
+    background: #2874a6;
+    color: white;
+}
+
+.speech-off {
+    background: #566573;
+    color: white;
+}
+
+.status {
+    margin-top: 12px;
+    color: #9eacb9;
+}
+
+.output {
+    background: #080b0f;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 120px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 17px;
+}
+
+.lfm-output {
+    font-size: 22px;
+    min-height: 180px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 9px 0;
+    border-bottom: 1px solid #293440;
+}
+
+.stat:last-child { border-bottom: none; }
+
+.value {
+    font-weight: bold;
+    text-align: right;
+    word-break: break-word;
+}
+
+.good { color: #6cff8b; }
+.warn { color: #ffd166; }
+.bad { color: #ff7676; }
+
+.speaking {
+    margin-top: 12px;
+    color: #6cff8b;
+    font-weight: bold;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.metric {
+    background: #0d1218;
+    border: 1px solid #293440;
+    border-radius: 10px;
+    padding: 13px;
+}
+
+.metric-label {
+    color: #8493a3;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metric-value {
+    margin-top: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+.pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 0 4px;
+}
+
+.node {
+    background: #0d1218;
+    border: 1px solid #344352;
+    border-radius: 10px;
+    padding: 10px 13px;
+    text-align: center;
+    min-width: 115px;
+    font-weight: bold;
+}
+
+.arrow {
+    color: #718096;
+    font-size: 20px;
+}
+
+.history {
+    max-height: 330px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 11px;
+    border-bottom: 1px solid #293440;
+}
+
+.history-item:last-child { border-bottom: none; }
+
+.history-output {
+    margin-top: 5px;
+    color: #dce5ed;
+}
+
+.log {
+    background: #080b0f;
+    border-radius: 10px;
+    padding: 12px;
+    height: 190px;
+    overflow-y: auto;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+}
+
+.footer {
+    text-align: center;
+    color: #657487;
+    font-size: 12px;
+    margin: 24px 0 8px;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    .dashboard { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+    body { padding: 10px; }
+    .dashboard { grid-template-columns: 1fr 1fr; }
+    .pipeline { justify-content: flex-start; }
+    .node { min-width: 100px; }
+    .arrow { display: none; }
+}

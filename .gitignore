@@ -1,0 +1,22 @@
+# Ignore everything by default
+/*
+
+# Keep Git configuration
+!.gitignore
+
+# Keep selected project files
+!MAIN.py
+!o.txt
+!tailscale_phone_comm test.py
+!T_p_c.html
+!T_p_c.css
+!README.md
+
+# Never publish private keys
+*.pem
+
+# Exclude local-only folders
+dataset/
+.venv/
+venv/
+llama.cpp/

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DivyaChakshu | Naitik</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 18px;
+    background: #0b0f14;
+    color: #e8eef5;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+}
+
+.brand {
+    text-align: center;
+    margin: 8px 0 25px;
+}
+
+.brand small {
+    display: block;
+    color: #8fa0b2;
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 3px;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: clamp(38px, 7vw, 68px);
+    letter-spacing: 4px;
+    font-weight: 900;
+}
+
+.subtitle {
+    text-align: center;
+    color: #8fa0b2;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.card {
+    background: #151b22;
+    border: 1px solid #293440;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.card h2 {
+    margin: 0 0 15px;
+    font-size: 20px;
+}
+
+video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 13px;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.start { background: #28b463; color: white; }
+.stop { background: #d64541; color: white; }
+
+.speech-on {
+    background: #2874a6;
+    color: white;
+}
+
+.speech-off {
+    background: #566573;
+    color: white;
+}
+
+.status {
+    margin-top: 12px;
+    color: #9eacb9;
+}
+
+.output {
+    background: #080b0f;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 120px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 17px;
+}
+
+.lfm-output {
+    font-size: 22px;
+    min-height: 180px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 9px 0;
+    border-bottom: 1px solid #293440;
+}
+
+.stat:last-child { border-bottom: none; }
+
+.value {
+    font-weight: bold;
+    text-align: right;
+    word-break: break-word;
+}
+
+.good { color: #6cff8b; }
+.warn { color: #ffd166; }
+.bad { color: #ff7676; }
+
+.speaking {
+    margin-top: 12px;
+    color: #6cff8b;
+    font-weight: bold;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.metric {
+    background: #0d1218;
+    border: 1px solid #293440;
+    border-radius: 10px;
+    padding: 13px;
+}
+
+.metric-label {
+    color: #8493a3;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metric-value {
+    margin-top: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+.pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 0 4px;
+}
+
+.node {
+    background: #0d1218;
+    border: 1px solid #344352;
+    border-radius: 10px;
+    padding: 10px 13px;
+    text-align: center;
+    min-width: 115px;
+    font-weight: bold;
+}
+
+.arrow {
+    color: #718096;
+    font-size: 20px;
+}
+
+.history {
+    max-height: 330px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 11px;
+    border-bottom: 1px solid #293440;
+}
+
+.history-item:last-child { border-bottom: none; }
+
+.history-output {
+    margin-top: 5px;
+    color: #dce5ed;
+}
+
+.log {
+    background: #080b0f;
+    border-radius: 10px;
+    padding: 12px;
+    height: 190px;
+    overflow-y: auto;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+}
+
+.footer {
+    text-align: center;
+    color: #657487;
+    font-size: 12px;
+    margin: 24px 0 8px;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    .dashboard { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+    body { padding: 10px; }
+    .dashboard { grid-template-columns: 1fr 1fr; }
+    .pipeline { justify-content: flex-start; }
+    .node { min-width: 100px; }
+    .arrow { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="brand">
+        <small>Naitik</small>
+        <h1>DIVYACHAKSHU</h1>
+        <div class="subtitle">
+            Live Phone Camera → CONFEDENTIAL VL MODEL → DC_DEBUGGER
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <!-- PHONE CAMERA -->
+        <div class="card">
+            <h2> Phone Camera</h2>
+
+            <video id="video" autoplay playsinline muted></video>
+
+            <button class="start" onclick="startCamera()">
+                START CAMERA
+            </button>
+
+            <button class="stop" onclick="stopCamera()">
+                STOP CAMERA
+            </button>
+
+            <button id="speechButton" class="speech-on" onclick="toggleSpeech()">
+                 SPEECH: ON
+            </button>
+
+            <div class="status" id="cameraStatus">
+                Camera stopped.
+            </div>
+
+            <div class="stat">
+                <span>Frames sent</span>
+                <span class="value" id="frameCount">0</span>
+            </div>
+
+            <div class="stat">
+                <span>Frames processed</span>
+                <span class="value" id="processedCount">0</span>
+            </div>
+
+            <div class="stat">
+                <span>Current frame</span>
+                <span class="value" id="currentFrame">—</span>
+            </div>
+
+            <div class="stat">
+                <span>Speech status</span>
+                <span class="value" id="speakingStatus"> Not speaking</span>
+            </div>
+        </div>
+
+        <!-- LFM OUTPUT -->
+        <div class="card">
+            <h2>VL MODEL Output</h2>
+
+            <div class="output lfm-output" id="lfmOutput">
+                Waiting for phone camera...
+            </div>
+
+            <div class="stat">
+                <span>Processed frame</span>
+                <span class="value" id="lfmFrame">—</span>
+            </div>
+
+            <div class="stat">
+                <span>Latest latency</span>
+                <span class="value" id="lfmLatency">—</span>
+            </div>
+
+            <div class="stat">
+                <span>Effective AI FPS</span>
+                <span class="value" id="aiFps">—</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="card">
+        <h2> Live Pipeline</h2>
+
+        <div class="pipeline">
+            <div class="node"> PHONE<br><small>Camera</small></div>
+            <div class="arrow">→</div>
+            <div class="node"> JPEG<br><small>Exact frame</small></div>
+            <div class="arrow">→</div>
+            <div class="node">VL MODEL (CONFEDENTIAL) <br><small>Inference</small></div>
+            <div class="arrow">→</div>
+            <div class="node">GUIDANCE<br><small>Decision</small></div>
+            <div class="arrow">→</div>
+            <div class="node"> AUDIO<br><small>Phone speaker</small></div>
+        </div>
+    </div>
+
+    <!-- ENGINEERING DASHBOARD -->
+    <div class="card">
+        <h2> Engineering Dashboard</h2>
+
+        <div class="dashboard">
+
+            <div class="metric">
+                <div class="metric-label">Phone server</div>
+                <div class="metric-value" id="mServer">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Tailscale IP</div>
+                <div class="metric-value" id="mIp">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">LFM server</div>
+                <div class="metric-value" id="mLfm">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">AI processing</div>
+                <div class="metric-value" id="mProcessing">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Saved JPEGs</div>
+                <div class="metric-value" id="mSaved">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Frames sent</div>
+                <div class="metric-value" id="mSent">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Frames processed</div>
+                <div class="metric-value" id="mProcessed">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">AI FPS</div>
+                <div class="metric-value" id="mFps">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Last latency</div>
+                <div class="metric-value" id="mLatency">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Avg latency</div>
+                <div class="metric-value" id="mAvgLatency">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Fastest</div>
+                <div class="metric-value" id="mFastest">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Slowest</div>
+                <div class="metric-value" id="mSlowest">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Speech</div>
+                <div class="metric-value" id="mSpeech">ON</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Browser</div>
+                <div class="metric-value" id="mBrowser">—</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Camera</div>
+                <div class="metric-value" id="mCamera">STOPPED</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Latest JPEG</div>
+                <div class="metric-value" id="mLatest">—</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CURRENT STATE -->
+    <div class="grid">
+
+        <div class="card">
+            <h2> System Status</h2>
+
+            <div class="output" id="systemStatus">
+                Checking laptop server...
+            </div>
+        </div>
+
+        <div class="card">
+            <h2> Speech Controller</h2>
+
+            <div class="output" id="speechInfo">
+                Speech is enabled.
+                The current sentence is never interrupted.
+                Only the newest completed LFM result waits for the next speech cycle.
+            </div>
+
+            <div class="speaking" id="speechLive">
+                 Not speaking
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RESULT HISTORY -->
+    <div class="card">
+        <h2> Recent LFM Results</h2>
+
+        <div class="history" id="history">
+            Waiting for results...
+        </div>
+    </div>
+
+    <!-- EVENT LOG -->
+    <div class="card">
+        <h2> Live Event Log</h2>
+
+        <div class="log" id="eventLog">
+            [SYSTEM] DivyaChakshu dashboard initialized.
+        </div>
+    </div>
+
+    <div class="footer">
+        NAITIK • DIVYACHAKSHU • LIVE AI ASSISTIVE VISION SYSTEM
+    </div>
+
+</div>
+
+<script>
+
+// =========================================================
+// CAMERA
+// =========================================================
+
+let stream = null;
+let cameraRunning = false;
+let frameTimer = null;
+let frameBusy = false;
+let frameCount = 0;
+
+const FRAME_INTERVAL = 1300;
+
+
+// =========================================================
+// SPEECH
+// =========================================================
+
+let speechEnabled = true;
+let lastSpokenOutput = "";
+let pendingSpeech = null;
+let speaking = false;
+let speechTimer = null;
+let speechCount = 0;
+
+
+// =========================================================
+// LATENCY METRICS
+// =========================================================
+
+let latencySamples = [];
+let fastestLatency = null;
+let slowestLatency = null;
+
+
+// =========================================================
+// LOG
+// =========================================================
+
+function logEvent(message) {
+    const log = document.getElementById("eventLog");
+    const now = new Date().toLocaleTimeString();
+    log.textContent += `\n[${now}] ${message}`;
+    log.scrollTop = log.scrollHeight;
+
+    const lines = log.textContent.split("\n");
+    if (lines.length > 160) {
+        log.textContent = lines.slice(-160).join("\n");
+    }
+}
+
+
+// =========================================================
+// START CAMERA
+// =========================================================
+
+async function startCamera() {
+    try {
+        if (cameraRunning) {
+            return;
+        }
+
+        stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: { ideal: "environment" },
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            },
+            audio: false
+        });
+
+        const video = document.getElementById("video");
+        video.srcObject = stream;
+
+        cameraRunning = true;
+
+        document.getElementById("cameraStatus").textContent =
+            "Camera active — sending frames to laptop.";
+
+        document.getElementById("mCamera").textContent = "ACTIVE";
+        document.getElementById("mCamera").className = "metric-value good";
+
+        logEvent("Phone camera started.");
+
+        frameTimer = setInterval(captureFrame, FRAME_INTERVAL);
+        captureFrame();
+
+    } catch (error) {
+        document.getElementById("cameraStatus").textContent =
+            "Camera error: " + error.message;
+
+        document.getElementById("mCamera").textContent = "ERROR";
+        document.getElementById("mCamera").className = "metric-value bad";
+
+        logEvent("Camera error: " + error.message);
+    }
+}
+
+
+// =========================================================
+// STOP CAMERA
+// =========================================================
+
+function stopCamera() {
+    cameraRunning = false;
+
+    if (frameTimer !== null) {
+        clearInterval(frameTimer);
+        frameTimer = null;
+    }
+
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+    }
+
+    document.getElementById("video").srcObject = null;
+
+    document.getElementById("cameraStatus").textContent =
+        "Camera stopped.";
+
+    document.getElementById("mCamera").textContent = "STOPPED";
+    document.getElementById("mCamera").className = "metric-value";
+
+    logEvent("Phone camera stopped.");
+}
+
+
+// =========================================================
+// CAPTURE + SEND JPEG
+// =========================================================
+
+async function captureFrame() {
+    if (!cameraRunning || frameBusy) {
+        return;
+    }
+
+    const video = document.getElementById("video");
+
+    if (!video.videoWidth || !video.videoHeight) {
+        return;
+    }
+
+    frameBusy = true;
+
+    try {
+        const canvas = document.createElement("canvas");
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const blob = await new Promise(resolve => {
+            canvas.toBlob(resolve, "image/jpeg", 0.82);
+        });
+
+        if (!blob) {
+            return;
+        }
+
+        const response = await fetch("/frame", {
+            method: "POST",
+            headers: {
+                "Content-Type": "image/jpeg"
+            },
+            body: blob
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            frameCount++;
+
+            document.getElementById("frameCount").textContent = frameCount;
+            document.getElementById("mSent").textContent = frameCount;
+
+            if (data.filename) {
+                document.getElementById("currentFrame").textContent = data.filename;
+                document.getElementById("mLatest").textContent = data.filename;
+            }
+
+            logEvent(
+                "JPEG sent → " +
+                (data.filename || "server")
+            );
+        }
+
+    } catch (error) {
+        logEvent("Frame upload error: " + error.message);
+    } finally {
+        frameBusy = false;
+    }
+}
+
+
+// =========================================================
+// TOGGLE SPEECH
+// =========================================================
+
+function toggleSpeech() {
+    speechEnabled = !speechEnabled;
+
+    const button = document.getElementById("speechButton");
+    const metric = document.getElementById("mSpeech");
+    const info = document.getElementById("speechInfo");
+
+    if (speechEnabled) {
+        button.textContent = "🔊 SPEECH: ON";
+        button.className = "speech-on";
+
+        metric.textContent = "ON";
+        metric.className = "metric-value good";
+
+        info.textContent =
+            "Speech is enabled. The current sentence is never interrupted. " +
+            "Only the newest completed LFM result waits for the next speech cycle.";
+
+        logEvent("Speech enabled.");
+
+        if (lastSpokenOutput === "" && pendingSpeech) {
+            scheduleSpeech();
+        }
+
+    } else {
+        button.textContent = "🔇 SPEECH: OFF";
+        button.className = "speech-off";
+
+        metric.textContent = "OFF";
+        metric.className = "metric-value warn";
+
+        pendingSpeech = null;
+
+        if (speechTimer !== null) {
+            clearTimeout(speechTimer);
+            speechTimer = null;
+        }
+
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+        }
+
+        speaking = false;
+
+        document.getElementById("speakingStatus").textContent =
+            "🔇 Speech disabled";
+
+        document.getElementById("speechLive").textContent =
+            "🔇 Speech disabled";
+
+        info.textContent =
+            "Speech is disabled. LFM continues processing normally. " +
+            "Turning speech back on does not replay old results.";
+
+        logEvent("Speech disabled.");
+    }
+}
+
+
+// =========================================================
+// SPEECH QUEUE — LATEST ONLY
+// =========================================================
+
+function queueSpeech(text) {
+    if (!speechEnabled || !("speechSynthesis" in window)) {
+        return;
+    }
+
+    pendingSpeech = text;
+
+    if (speaking) {
+        return;
+    }
+
+    if (speechTimer !== null) {
+        return;
+    }
+
+    scheduleSpeech();
+}
+
+
+function scheduleSpeech() {
+    if (!speechEnabled || speaking || !pendingSpeech) {
+        return;
+    }
+
+    if (speechTimer !== null) {
+        return;
+    }
+
+    document.getElementById("speakingStatus").textContent =
+        "⏳ Waiting 1 second...";
+
+    document.getElementById("speechLive").textContent =
+        "⏳ Waiting 1 second...";
+
+    speechTimer = setTimeout(speakLatestPending, 1000);
+}
+
+
+function speakLatestPending() {
+    speechTimer = null;
+
+    if (!speechEnabled || speaking || !pendingSpeech) {
+        return;
+    }
+
+    const text = pendingSpeech;
+    pendingSpeech = null;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.lang = "en-US";
+    utterance.rate = 0.95;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    utterance.onstart = function() {
+        speaking = true;
+        speechCount++;
+
+        document.getElementById("speakingStatus").textContent =
+            "🔊 Speaking";
+
+        document.getElementById("speechLive").textContent =
+            "🔊 Speaking";
+
+        logEvent("Speech started.");
+    };
+
+    utterance.onend = function() {
+        speaking = false;
+
+        document.getElementById("speakingStatus").textContent =
+            "🔇 Not speaking";
+
+        document.getElementById("speechLive").textContent =
+            "🔇 Not speaking";
+
+        logEvent("Speech finished.");
+
+        if (speechEnabled && pendingSpeech) {
+            scheduleSpeech();
+        }
+    };
+
+    utterance.onerror = function() {
+        speaking = false;
+
+        document.getElementById("speakingStatus").textContent =
+            "⚠️ Speech error";
+
+        document.getElementById("speechLive").textContent =
+            "⚠️ Speech error";
+
+        logEvent("Speech engine error.");
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+
+// =========================================================
+// LFM STATUS
+// =========================================================
+
+async function updateLFM() {
+    try {
+        const response = await fetch("/lfm-status");
+        const data = await response.json();
+
+        const output = data.output || "Waiting for phone camera...";
+
+        document.getElementById("lfmOutput").textContent = output;
+
+        document.getElementById("lfmFrame").textContent =
+            data.frame || data.image || "—";
+
+        document.getElementById("lfmLatency").textContent =
+            data.elapsed > 0
+                ? data.elapsed.toFixed(3) + " s"
+                : "—";
+
+        document.getElementById("processedCount").textContent =
+            data.processed_count ?? data.current ?? 0;
+
+        document.getElementById("currentFrame").textContent =
+            data.latest_frame || data.frame || "—";
+
+        document.getElementById("mProcessed").textContent =
+            data.processed_count ?? data.current ?? 0;
+
+        const elapsed = Number(data.elapsed);
+
+        if (elapsed > 0) {
+            latencySamples.push(elapsed);
+
+            if (latencySamples.length > 50) {
+                latencySamples.shift();
+            }
+
+            fastestLatency =
+                fastestLatency === null
+                    ? elapsed
+                    : Math.min(fastestLatency, elapsed);
+
+            slowestLatency =
+                slowestLatency === null
+                    ? elapsed
+                    : Math.max(slowestLatency, elapsed);
+
+            const average =
+                latencySamples.reduce((a, b) => a + b, 0) /
+                latencySamples.length;
+
+            const fps =
+                average > 0 ? (1 / average) : 0;
+
+            document.getElementById("aiFps").textContent =
+                fps.toFixed(2);
+
+            document.getElementById("mFps").textContent =
+                fps.toFixed(2);
+
+            document.getElementById("mLatency").textContent =
+                elapsed.toFixed(3) + " s";
+
+            document.getElementById("mAvgLatency").textContent =
+                average.toFixed(3) + " s";
+
+            document.getElementById("mFastest").textContent =
+                fastestLatency.toFixed(3) + " s";
+
+            document.getElementById("mSlowest").textContent =
+                slowestLatency.toFixed(3) + " s";
+        }
+
+        if (
+            output &&
+            output !== "Waiting for phone camera..." &&
+            output !== "Processing..." &&
+            output !== lastSpokenOutput
+        ) {
+            lastSpokenOutput = output;
+
+            if (speechEnabled) {
+                queueSpeech(output);
+            }
+        }
+
+        updateHistory(data.history || []);
+
+    } catch (error) {
+        logEvent("LFM status request failed.");
+    }
+}
+
+
+// =========================================================
+// HISTORY
+// =========================================================
+
+function updateHistory(history) {
+    const container = document.getElementById("history");
+
+    if (!history || history.length === 0) {
+        container.textContent = "Waiting for results...";
+        return;
+    }
+
+    container.innerHTML = history
+        .slice()
+        .reverse()
+        .slice(0, 30)
+        .map(item => {
+            const latency =
+                typeof item.elapsed === "number"
+                    ? item.elapsed.toFixed(3) + " s"
+                    : "—";
+
+            return `
+                <div class="history-item">
+                    <b>${escapeHtml(String(item.index ?? ""))}.</b>
+                    ${escapeHtml(String(item.image ?? item.frame ?? "—"))}
+                    <br>
+                    Latency: ${latency}
+                    <div class="history-output">
+                        ${escapeHtml(String(item.output ?? ""))}
+                    </div>
+                </div>
+            `;
+        })
+        .join("");
+}
+
+
+// =========================================================
+// SYSTEM STATUS
+// =========================================================
+
+async function updateSystemStatus() {
+    try {
+        const response = await fetch("/status");
+        const data = await response.json();
+
+        const lfm = data.lfm || "UNKNOWN";
+        const processing =
+            data.processing ||
+            data.benchmark ||
+            "UNKNOWN";
+
+        const saved =
+            data.saved_frames ??
+            data.captured_images ??
+            data.saved_phone_frames ??
+            "—";
+
+        document.getElementById("mServer").textContent = "ONLINE";
+        document.getElementById("mServer").className =
+            "metric-value good";
+
+        document.getElementById("mIp").textContent =
+            data.tailscale_ip || "—";
+
+        document.getElementById("mLfm").textContent = lfm;
+        document.getElementById("mLfm").className =
+            lfm.toUpperCase() === "ONLINE"
+                ? "metric-value good"
+                : "metric-value warn";
+
+        document.getElementById("mProcessing").textContent =
+            processing;
+
+        document.getElementById("mSaved").textContent =
+            saved;
+
+        document.getElementById("systemStatus").textContent =
+            "PHONE SERVER: ONLINE\n\n" +
+            "TAILSCALE IP: " + (data.tailscale_ip || "—") + "\n\n" +
+            "SAVED PHONE FRAMES: " + saved + "\n\n" +
+            "LFM SERVER: " + lfm + "\n\n" +
+            "LIVE LFM: " + processing;
+
+    } catch (error) {
+        document.getElementById("mServer").textContent = "OFFLINE";
+        document.getElementById("mServer").className =
+            "metric-value bad";
+
+        document.getElementById("systemStatus").textContent =
+            "Unable to contact laptop server.";
+
+        logEvent("Laptop server unavailable.");
+    }
+}
+
+
+// =========================================================
+// ESCAPE HTML
+// =========================================================
+
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+
+// =========================================================
+// BROWSER INFO
+// =========================================================
+
+function updateBrowserInfo() {
+    const ua = navigator.userAgent;
+
+    let browser = "Unknown";
+
+    if (ua.includes("Chrome")) browser = "Chrome";
+    else if (ua.includes("Firefox")) browser = "Firefox";
+    else if (ua.includes("Safari")) browser = "Safari";
+    else if (ua.includes("Edge")) browser = "Edge";
+
+    document.getElementById("mBrowser").textContent = browser;
+}
+
+
+// =========================================================
+// POLLING
+// =========================================================
+
+setInterval(updateLFM, 300);
+setInterval(updateSystemStatus, 2000);
+
+updateBrowserInfo();
+updateLFM();
+updateSystemStatus();
+
+</script>
+
+</body>
+</html>
